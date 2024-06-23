@@ -87,9 +87,7 @@
       </button>
     </aside>
     <main role="main">
-      <!-- Start: Implementation -->
-      👉 Your code goes here 👈
-      <!-- End: Implementation -->
+      <PreviousRulings />
     </main>
     <aside class="banner banner-bottom" role="doc-tip" aria-label="Submit a name">
       <img
@@ -141,9 +139,10 @@
   </div>
 </template>
 <script setup>
-import Search from './assets/img/search.svg?component'
-import ThumbsUp from './assets/img/thumbs-up.svg?component'
-import ThumbsDown from './assets/img/thumbs-down.svg?component'
+import Search from './assets/img/search.svg?component';
+import ThumbsUp from './assets/img/thumbs-up.svg?component';
+import ThumbsDown from './assets/img/thumbs-down.svg?component';
+import PreviousRulings from './components/PreviousRulings.vue';
 </script>
 <style scoped>
 
