@@ -8,12 +8,13 @@
   </div>
 </template>
 <script setup>
-import { ref } from 'vue';
+import { computed } from 'vue';
 import RulingDetails from './RulingDetails.vue';
-import { data } from '../assets/data.json';
+import { useDataStore } from '../stores/dataStore';
 
-const previousRulings = ref(data);
+const dataStore = useDataStore();
 
+const previousRulings = computed(() => dataStore.data);
 </script>
 <style scoped>
 .previous-rulings-header {
