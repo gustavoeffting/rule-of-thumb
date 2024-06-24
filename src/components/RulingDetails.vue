@@ -23,8 +23,14 @@
       </div>
     </div>
     <div class="vote-percentage">
-      <span style="color:red;">positive: {{ props.ruling.votes.positive }}</span>
-      <span style="color:red;">negative: {{ props.ruling.votes.negative }}</span>
+      <div class="vote-percentage-positive" :style="{ width: averagePositive + '%' }">
+        <ThumbsUp alt="thumbs up"/>
+        <span>{{ averagePositive }}%</span>
+      </div>
+      <div class="vote-percentage-negative" :style="{ width: averageNegative + '%' }">
+        <span>{{ averageNegative }}%</span>
+        <ThumbsDown alt="thumbs down" />
+      </div>
     </div>
   </div>
 </template>
@@ -54,6 +60,9 @@ const handleVote = () => {
     hasVoted.value = true;
   }
 }
+
+const averagePositive = computed(() => Math.round(props.ruling.votes.positive / (props.ruling.votes.positive + props.ruling.votes.negative) * 100));
+const averageNegative = computed(() => Math.round(props.ruling.votes.negative / (props.ruling.votes.positive + props.ruling.votes.negative) * 100));
 
 const lastUpdated = computed(() => DateTime.fromISO(props.ruling.lastUpdated).setLocale('en').toRelative());
 </script>
@@ -97,8 +106,28 @@ const lastUpdated = computed(() => DateTime.fromISO(props.ruling.lastUpdated).se
 .vote-percentage {
   width: 100%;
   height: 54px;
-  background-color: aqua;
-  opacity: 0.3;
+  display: flex;
+  font-size: 20px;
+}
+
+.vote-percentage-positive {
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  gap: 5px;
+  background-color: rgb(60, 187, 180, 0.6);
+  height: 54px;
+  padding-left: 15px;
+}
+
+.vote-percentage-negative {
+  display: flex;
+  justify-content: end;
+  align-items: center;
+  gap: 5px;
+  background-color: rgb(249, 172, 29, 0.6);
+  height: 54px;
+  padding-right: 15px;
 }
 
 .button-options {
