@@ -1,5 +1,6 @@
 import { defineStore } from "pinia";
 import { data } from '../assets/data.json';
+import { DateTime } from "luxon";
 
 export const useDataStore = defineStore({
   id: "data",
@@ -8,7 +9,6 @@ export const useDataStore = defineStore({
   }),
   actions: {
     updateVoting(name, vote) {
-      // TODO: update lastUpdated
       const index = this.data.findIndex((item) => item.name === name);
 
       if (vote === true) {
@@ -17,6 +17,7 @@ export const useDataStore = defineStore({
         this.data[index].votes.negative++;
       }
 
+      this.data[index].lastUpdated = DateTime.now().toISO();
       localStorage.setItem("data", JSON.stringify(this.data));
     },
   }

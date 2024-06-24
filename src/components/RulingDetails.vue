@@ -6,7 +6,7 @@
         <p class="ruling-description">{{ props.ruling.description }}</p>
       </div>
       <div class="ruling-info-buttons">
-        <p class="ruling-date">{{ hasVoted ? 'Thank you for your vote!' : `${props.ruling.lastUpdated} ago in ${category}` }}</p>
+        <p class="ruling-date">{{ hasVoted ? 'Thank you for your vote!' : `${lastUpdated} ago in ${props.ruling.category}` }}</p>
         <div class="button-options">
           <div v-if="!hasVoted">
             <button class="icon-button btn-option" :class="{ 'btn-vote-selected': vote === true }" @click="vote = true" aria-label="thumbs up">
@@ -33,7 +33,9 @@ const props = defineProps(['ruling']);
 import ThumbsUp from '../assets/img/thumbs-up.svg?component';
 import ThumbsDown from '../assets/img/thumbs-down.svg?component';
 
-import { ref } from 'vue';
+import { DateTime } from 'luxon';
+
+import { ref, computed } from 'vue';
 import { useDataStore } from '../stores/dataStore';
 
 const dataStore = useDataStore();
@@ -52,6 +54,8 @@ const handleVote = () => {
     hasVoted.value = true;
   }
 }
+
+const lastUpdated = computed(() => DateTime.fromISO(props.ruling.lastUpdated).setLocale('en').toRelative());
 </script>
 <style scoped>
 .ruling-details {
