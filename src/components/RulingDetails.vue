@@ -22,7 +22,10 @@
         </div>
       </div>
     </div>
-    <div class="vote-percentage"></div>
+    <div class="vote-percentage">
+      <span style="color:red;">positive: {{ props.ruling.votes.positive }}</span>
+      <span style="color:red;">negative: {{ props.ruling.votes.negative }}</span>
+    </div>
   </div>
 </template>
 <script setup>
@@ -31,6 +34,11 @@ import ThumbsUp from '../assets/img/thumbs-up.svg?component';
 import ThumbsDown from '../assets/img/thumbs-down.svg?component';
 
 import { ref } from 'vue';
+import { useDataStore } from '../stores/dataStore';
+
+const dataStore = useDataStore();
+
+const updateVoting = (name, vote) => dataStore.updateVoting(name, vote);
 
 const vote = ref(null);
 const hasVoted = ref(false);
@@ -40,8 +48,7 @@ const handleVote = () => {
     hasVoted.value = false;
     vote.value = null;
   } else {
-    // TODO: implement vote logic and add to data.json
-    // vote.value
+    updateVoting(props.ruling.name, vote.value);
     hasVoted.value = true;
   }
 }
