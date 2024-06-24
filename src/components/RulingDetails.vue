@@ -26,6 +26,7 @@
   </div>
 </template>
 <script setup>
+const props = defineProps(['ruling']);
 import ThumbsUp from '../assets/img/thumbs-up.svg?component';
 import ThumbsDown from '../assets/img/thumbs-down.svg?component';
 
@@ -44,9 +45,6 @@ const handleVote = () => {
     hasVoted.value = true;
   }
 }
-
-const props = defineProps(['ruling']);
-// console.log(props.ruling)
 </script>
 <style scoped>
 .ruling-details {
