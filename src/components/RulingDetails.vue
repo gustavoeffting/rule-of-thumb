@@ -6,7 +6,7 @@
         <p class="ruling-description">{{ props.ruling.description }}</p>
       </div>
       <div class="ruling-info-buttons">
-        <p class="ruling-date">{{ hasVoted ? 'Thank you for you vote!' : `${props.ruling.lastUpdated} ago in ${category}` }}</p>
+        <p class="ruling-date">{{ hasVoted ? 'Thank you for your vote!' : `${props.ruling.lastUpdated} ago in ${category}` }}</p>
         <div class="button-options">
           <div v-if="!hasVoted">
             <button class="icon-button btn-option" :class="{ 'btn-vote-selected': vote === true }" @click="vote = true" aria-label="thumbs up">
