@@ -1,5 +1,5 @@
 <template>
-  <div class="ruling-details">
+  <div class="ruling-details" :style="{ backgroundImage: `linear-gradient(to right, rgba(0, 0, 0, 0.1) 60%, gray 100%), url(${picture})` }">
     <div class="ruling-info">
       <div class="ruling-info-details">
         <p class="ruling-name">{{ props.ruling.name }}</p>
@@ -35,7 +35,7 @@
   </div>
 </template>
 <script setup>
-const props = defineProps(['ruling']);
+const props = defineProps(['ruling', 'picture']);
 import ThumbsUp from '../assets/img/thumbs-up.svg?component';
 import ThumbsDown from '../assets/img/thumbs-down.svg?component';
 
@@ -74,6 +74,11 @@ const lastUpdated = computed(() => DateTime.fromISO(props.ruling.lastUpdated).se
   height: 170px;
   background-color: gray;
   color: white;
+  background-size: cover;
+  background-position: left;
+  background-repeat: no-repeat;
+  background-size: 20%;
+  background-image: linear-gradient(to right, rgba(0, 0, 0, 0.5) 20%, gray 100%), url('');
 }
 
 .ruling-info {
