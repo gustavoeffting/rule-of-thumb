@@ -1,6 +1,12 @@
 <template>
   <div class="ruling-details" :style="{ backgroundImage: `linear-gradient(to right, rgba(0, 0, 0, 0.1) 60%, gray 100%), url(${picture})` }">
     <div class="ruling-info">
+      <button v-if="decision==='positive'" class="icon-button vote-result-info" aria-label="thumbs up">
+        <ThumbsUp alt="thumbs up"/>
+      </button>
+      <button v-else class="icon-button vote-result-info" aria-label="thumbs down">
+        <ThumbsDown alt="thumbs down" />
+      </button>
       <div class="ruling-info-details">
         <p class="ruling-name">{{ props.ruling.name }}</p>
         <p class="ruling-description">{{ props.ruling.description }}</p>
@@ -63,6 +69,7 @@ const handleVote = () => {
 
 const averagePositive = computed(() => Math.round(props.ruling.votes.positive / (props.ruling.votes.positive + props.ruling.votes.negative) * 100));
 const averageNegative = computed(() => Math.round(props.ruling.votes.negative / (props.ruling.votes.positive + props.ruling.votes.negative) * 100));
+const decision = computed(() => averagePositive.value > averageNegative.value ? 'positive' : 'negative');
 
 const lastUpdated = computed(() => DateTime.fromISO(props.ruling.lastUpdated).setLocale('en').toRelative());
 </script>
@@ -93,6 +100,7 @@ const lastUpdated = computed(() => DateTime.fromISO(props.ruling.lastUpdated).se
 
 .ruling-info-buttons {
   width: 25%;
+  margin-right: 15px;
 }
 
 .ruling-name {
@@ -106,6 +114,11 @@ const lastUpdated = computed(() => DateTime.fromISO(props.ruling.lastUpdated).se
 
 .ruling-description {
   font-size: 14px;
+}
+
+.vote-result-info {
+  width: 45px;
+  height: 45px;
 }
 
 .vote-percentage {
@@ -147,7 +160,6 @@ const lastUpdated = computed(() => DateTime.fromISO(props.ruling.lastUpdated).se
   background-color: rgb(0, 0, 0, .5);
   color: white;
   border: 1px solid white;
-  padding: 5px 10px;
   margin-left: 5px;
   cursor: pointer;
 }
